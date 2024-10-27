@@ -138,6 +138,21 @@ public IUser getUser(String id) {
 
 Au départ, j'avais choisi de faire un singleton pour la classe '**Library**'. Finalement, je me suis ravisé. En effet, cela ne me permettait pas de faire des tests unitaires indépendant les uns des autres. De plus, cela peut poser problème pour l'extensibilité du code, si on devait gérer plusieurs librairies par la suite.
 
+## Stockage des fichiers dans les ressources
+
+Je choisis de stocker les fichiers .json dans les ressources pour qu'ils soient transporté avec le projet et que l'utilisateur ne commence pas avec rien.
+
+![image](https://github.com/user-attachments/assets/131c56ec-b570-41ea-81c7-97387f3c8cb4)
+
+Pour y accéder dans le code je passe par la classe courrante et je récupère la ressource, puis je la transforme en '**File**' ce qui me permettra d'obtenir le chemin. Ensuite, j'utilise la classe Files pour intéragir avec le système de fichier car cela me semble être la manière la plus simple.
+
+```
+File file = new File(getClass().getResource("/availableBooks.json").getFile());
+
+String fileContent = Files.readString(file.toPath());
+```
+
+
 ## Hiérarchie des classes
 
 ![image](https://github.com/user-attachments/assets/469a8d8b-a247-4d23-bed9-46e90046e1bc)
