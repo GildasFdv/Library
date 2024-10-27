@@ -186,6 +186,11 @@ Cloner le projet:
 git clone https://github.com/GildasFdv/Library.git
 ```
 
+Se déplacer dans le répertoire du projet:
+```
+cd Library
+```
+
 Compiler:
 ```
 mvn compile
