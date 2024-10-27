@@ -134,4 +134,47 @@ public IUser getUser(String id) {
                 .orElse(null);
 }
 ```
+## Singleton pour la classe '**Library**' ?
+
+Au départ, j'avais choisi de faire un singleton pour la classe '**Library**'. Finalement, je me suis ravisé. En effet, cela ne me permettait pas de faire des tests unitaires indépendant les uns des autres. De plus, cela peut poser problème pour l'extensibilité du code, si on devait gérer plusieurs librairies par la suite.
+
+## Hiérarchie des classes
+
+![image](https://github.com/user-attachments/assets/469a8d8b-a247-4d23-bed9-46e90046e1bc)
+
+### La Vue
+
+Dans cette hiérachie on retrouve notre Vue ('**AppView**' qui implémente '**IAppView**') qui contient toute la logique d'interface utilisateur. Elle contient les méthodes qui font de l'affichage mais aussi celles qui gèrent la saisie et la validation de données. 
+
+### Le modèles
+
+### '**Library**' qui implémente '**ILibrary**'
+
+Contient la définition des propriétés d'une librairie ainsi que la logique propre à la librairie. J'aurais pu gérer la logique de sauvegarde à l'extérieur de cette classe.
+
+### '**User**' qui implémente '**IUser**'
+
+Contient la définition des propriétés d'un utilisateur ainsi que la logique propre à l'utilisateur.
+
+### '**Book**' qui implémente '**IBook**'
+
+Contient la définition des propriétés d'un livre ainsi que la logique propre à un livre.
+
+## Les controllers
+
+### '**BookController**' qui implémente '**IBookController**'
+
+Fait la liaison entre la library, et la vue. Cela permet de donner toutes les fonctionnalités de la librairie à la vue (louer un livre, rendre un livre, obtenir la liste des livres disponibles, exporter la liste des livres disponibles ...).
+
+### '**UserController**' qui implémente '**IUserController**'
+
+Fait la liaison entre la user, et la vue. Cela permet principalement de gérer l'authentification.
+
+### '**AppController**' qui implémente '**IAppController**'
+
+Fait le liens entre tous les modèles et la vue. Elle contient un '**IUserController**' et un '**IBookController**'. 
+
+# Installation
+
+à venir...
 
