@@ -1,15 +1,14 @@
-package fr.gildasfedevieille.book;
+package fr.gildasfedevieille.models;
 
-public class Book
-{
+public class Book implements IBook {
+
     private String ISBN;
     private String title;
     private String description;
     private String author;
     private double price;
 
-    public Book(String ISBN, String title, String description, String author, double price)
-    {
+    public Book(String ISBN, String title, String description, String author, double price) {
         this.ISBN = ISBN;
         this.title = title;
         this.description = description;
@@ -17,72 +16,60 @@ public class Book
         this.price = price;
     }
 
-    public String getISBN()
-    {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(String ISBN)
-    {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getAuthor()
-    {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author)
-    {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    public double getPrice()
-    {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price)
-    {
+    public void setPrice(double price) {
         this.price = price;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return new StringBuilder("Book{")
-            .append("ISBN='").append(ISBN).append('\'')
-            .append(", title='").append(title).append('\'')
-            .append(", description='").append(description).append('\'')
-            .append(", author='").append(author).append('\'')
-            .append(", price=").append(price)
-            .append('}')
-            .toString();
+                .append("ISBN='").append(ISBN).append('\'')
+                .append(", title='").append(title).append('\'')
+                .append(", description='").append(description).append('\'')
+                .append(", author='").append(author).append('\'')
+                .append(", price=").append(price)
+                .append('}')
+                .toString();
     }
 
-
-    public String toShortString()
-    {
+    @Override
+    public String toShortString() {
         return new StringBuilder("Book{")
                 .append("ISBN='").append(ISBN).append('\'')
                 .append(", title='").append(title).append('\'')

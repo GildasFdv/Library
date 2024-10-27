@@ -1,4 +1,4 @@
-package fr.gildasfedevieille.library;
+package fr.gildasfedevieille.models;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,72 +8,50 @@ import java.nio.file.Files;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import fr.gildasfedevieille.book.Book;
 import fr.gildasfedevieille.exceptions.NoBookFound;
-import fr.gildasfedevieille.user.User;
 import fr.gildasfedevieille.utils.CustomHashSet;
 
-public class Library
-{
-    // instance pour le singleton
-    private static Library instance;
+public class Library implements ILibrary {
 
     // HashSet: Les livres sont uniques + Recherche et insertion rapide
-    private CustomHashSet<Book> availableBooks;
-    private CustomHashSet<Book> rentedBooks;
+    private CustomHashSet<IBook> availableBooks;
+    private CustomHashSet<IBook> rentedBooks;
 
     // HashSet: Les utilisateurs sont uniques + Recherche et insertion rapide
-    private CustomHashSet<User> users;
+    private CustomHashSet<IUser> users;
 
-    // accesseur à l'instance unique de Library
-    public static Library getInstance() throws IOException
-    {
-        if (instance == null)
-        {
-            instance = new Library();
-        }
-        return instance;
-    }
-
-    // construteur privé pour le singleton
-    private Library() throws IOException
-    {
+    public Library() {
         availableBooks = new CustomHashSet<>();
         rentedBooks = new CustomHashSet<>();
         users = new CustomHashSet<>();
-        loadDatabase();
     }
 
-    public boolean addBook(Book book)
-    {
+    public boolean addBook(Book book) {
         return availableBooks.add(book);
     }
 
-    public boolean removeBook(Book book)
-    {
+    public boolean removeBook(IBook book) {
         return availableBooks.remove(book);
     }
 
-    private void loadAvailableBooks() throws IOException
-    {
+    private void loadAvailableBooks() throws IOException {
         File file = new File(getClass().getResource("/availableBooks.json").getFile());
 
         String fileContent = Files.readString(file.toPath());
 
         Gson gson = new Gson();
 
-        Type bookEntryListType = new TypeToken<CustomHashSet<Book>>(){}.getType();
+        Type bookEntryListType = new TypeToken<CustomHashSet<Book>>() {
+        }.getType();
 
         CustomHashSet<Book> books = gson.fromJson(fileContent, bookEntryListType);
 
-        if (books != null && !books.isEmpty())
-        {
+        if (books != null && !books.isEmpty()) {
             availableBooks.addAll(books);
         }
     }
 
-    private void saveAvailableBooks() throws IOException
-    {
+    private void saveAvailableBooks() throws IOException {
         File file = new File(getClass().getResource("/availableBooks.json").getFile());
 
         Gson gson = new Gson();
@@ -83,26 +61,24 @@ public class Library
         Files.writeString(file.toPath(), json);
     }
 
-    private void loadRentedBooks() throws IOException
-    {
+    private void loadRentedBooks() throws IOException {
         File file = new File(getClass().getResource("/rentedBooks.json").getFile());
 
         String fileContent = Files.readString(file.toPath());
 
         Gson gson = new Gson();
 
-        Type bookEntryListType = new TypeToken<CustomHashSet<Book>>(){}.getType();
+        Type bookEntryListType = new TypeToken<CustomHashSet<Book>>() {
+        }.getType();
 
-        CustomHashSet<Book> books = gson.fromJson(fileContent, bookEntryListType);
+        CustomHashSet<IBook> books = gson.fromJson(fileContent, bookEntryListType);
 
-        if (books != null && !books.isEmpty())
-        {
+        if (books != null && !books.isEmpty()) {
             rentedBooks.addAll(books);
         }
     }
 
-    private void saveRentedBooks() throws IOException
-    {
+    private void saveRentedBooks() throws IOException {
         File file = new File(getClass().getResource("/rentedBooks.json").getFile());
 
         Gson gson = new Gson();
@@ -112,26 +88,24 @@ public class Library
         Files.writeString(file.toPath(), json);
     }
 
-    private void loadUsers() throws IOException
-    {
+    private void loadUsers() throws IOException {
         File file = new File(getClass().getResource("/users.json").getFile());
 
         String fileContent = Files.readString(file.toPath());
 
         Gson gson = new Gson();
 
-        Type userListType = new TypeToken<CustomHashSet<User>>(){}.getType();
+        Type userListType = new TypeToken<CustomHashSet<User>>() {
+        }.getType();
 
-        CustomHashSet<User> loadedUsers = gson.fromJson(fileContent, userListType);
+        CustomHashSet<IUser> loadedUsers = gson.fromJson(fileContent, userListType);
 
-        if (loadedUsers != null && !loadedUsers.isEmpty())
-        {
+        if (loadedUsers != null && !loadedUsers.isEmpty()) {
             users.addAll(loadedUsers);
         }
     }
 
-    private void saveUsers() throws IOException
-    {
+    private void saveUsers() throws IOException {
         File file = new File(getClass().getResource("/users.json").getFile());
 
         Gson gson = new Gson();
@@ -141,82 +115,76 @@ public class Library
         Files.writeString(file.toPath(), json);
     }
 
-    final public void loadDatabase() throws IOException
-    {
+    @Override
+    final public void loadDatabase() throws IOException {
         loadAvailableBooks();
         loadRentedBooks();
         loadUsers();
     }
 
-    final public void saveDatabase() throws IOException
-    {
+    @Override
+    final public void saveDatabase() throws IOException {
         saveAvailableBooks();
         saveRentedBooks();
         saveUsers();
     }
 
-    public boolean addUser(User user)
-    {
+    @Override
+    public boolean addUser(IUser user) {
         return users.add(user);
     }
 
-    public boolean removeUser(User user)
-    {
+    public boolean removeUser(IUser user) {
         return users.remove(user);
     }
 
-    public User getUser(String id)
-    {
+    @Override
+    public IUser getUser(String id) {
         return users.firstOrDefault(u -> u.getId().equals(id));
     }
 
-    public boolean rentBook(User user, String ISBN) throws NoBookFound
-    {
-        Book book = availableBooks.firstOrDefault(b -> b.getISBN().equals(ISBN));
+    @Override
+    public boolean rentBook(IUser user, String ISBN) throws NoBookFound {
+        IBook book = availableBooks.firstOrDefault(b -> b.getISBN().equals(ISBN));
 
-        if (book == null)
-        {
+        if (book == null) {
             throw new NoBookFound();
         }
 
-        if (user.canRentBook(book))
-        {
-            if (user.rentBook(book))
-            {
+        if (user.canRentBook(book)) {
+            if (user.rentBook(book)) {
                 return availableBooks.remove(book) && rentedBooks.add(book);
             }
         }
         return false;
     }
 
-    public boolean returnBook(User user, String ISBN) throws NoBookFound
-    {
-        Book book = rentedBooks.firstOrDefault(b -> b.getISBN().equals(ISBN));
+    @Override
+    public boolean returnBook(IUser user, String ISBN) throws NoBookFound {
+        IBook book = rentedBooks.firstOrDefault(b -> b.getISBN().equals(ISBN));
 
-        if (book == null)
-        {
+        if (book == null) {
             throw new NoBookFound();
         }
 
-        if (user.returnBook(book))
-        {
+        if (user.returnBook(book)) {
             return rentedBooks.remove(book) && availableBooks.add(book);
         }
         return false;
     }
 
-    public CustomHashSet<Book> getAvailableBooks()
-    {
+    @Override
+    public CustomHashSet<IBook> getAvailableBooks() {
         return availableBooks;
     }
 
-    public Book getBook(String ISBN)
-    {
+    @Override
+    public IBook getBook(String ISBN) {
         return availableBooks.firstOrDefault(b -> b.getISBN().equals(ISBN));
     }
 
-    public void exportCatalog(String path) throws IOException
-    {
+    @Override
+    public void exportCatalog(String path) throws IOException {
         File file = new File(path);
 
         Gson gson = new Gson();

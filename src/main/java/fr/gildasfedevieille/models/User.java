@@ -1,19 +1,18 @@
-package fr.gildasfedevieille.user;
+package fr.gildasfedevieille.models;
 
 import java.util.HashSet;
-import fr.gildasfedevieille.models.Book;
 
-public class User
-{
-    private final HashSet<Book> rentedBooks = new HashSet<Book>();
+public class User implements IUser {
 
-    public User(final String id)
-    {
+    private final HashSet<IBook> rentedBooks = new HashSet<IBook>();
+
+    public User(final String id) {
         this.id = id;
     }
 
     private String id;
 
+    @Override
     public String getId() {
         return id;
     }
@@ -22,18 +21,40 @@ public class User
         this.id = id;
     }
 
-    public boolean rentBook(Book book)
-    {
+    @Override
+    public boolean rentBook(IBook book) {
         return rentedBooks.add(book);
     }
 
-    public boolean returnBook(Book book)
-    {
+    @Override
+    public boolean returnBook(IBook book) {
         return rentedBooks.remove(book);
     }
 
-    public boolean canRentBook(Book book)
-    {
+    @Override
+    public boolean canRentBook(IBook book) {
         return rentedBooks.size() < 3 && !rentedBooks.contains(book);
+    }
+
+    @Override
+    public String toString() {
+        return "User{id='" + id + "'}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        User user = (User) obj;
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

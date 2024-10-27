@@ -1,0 +1,86 @@
+[
+  {
+    "ISBN": "978-3-16-148410-0",
+    "title": "Java Programming",
+    "description": "A comprehensive guide to Java programming.",
+    "author": "John Doe",
+    "price": 39.99
+  },
+  {
+    "ISBN": "978-1-23-456789-7",
+    "title": "Effective Java",
+    "description": "Best practices for Java development.",
+    "author": "Joshua Bloch",
+    "price": 45.00
+  },
+  {
+    "ISBN": "978-0-13-468599-1",
+    "title": "Clean Code",
+    "description": "A handbook of agile software craftsmanship.",
+    "author": "Robert C. Martin",
+    "price": 42.95
+  },
+  {
+    "ISBN": "978-0-07-180925-2",
+    "title": "Java: The Complete Reference",
+    "description": "A definitive guide to Java.",
+    "author": "Herbert Schildt",
+    "price": 55.00
+  },
+  {
+    "ISBN": "978-0-12-374514-9",
+    "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+    "description": "A seminal book on design patterns in software development.",
+    "author": "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+    "price": 49.99
+  },
+  {
+    "ISBN": "978-0-596-52068-7",
+    "title": "Head First Design Patterns",
+    "description": "An introduction to design patterns using a visually rich format.",
+    "author": "Eric Freeman, Elisabeth Robson",
+    "price": 35.50
+  },
+  {
+    "ISBN": "978-0-13-235088-4",
+    "title": "Refactoring: Improving the Design of Existing Code",
+    "description": "A guide to improving existing code with refactoring techniques.",
+    "author": "Martin Fowler",
+    "price": 47.99
+  },
+  {
+    "ISBN": "978-0-321-35668-0",
+    "title": "The Pragmatic Programmer",
+    "description": "Your journey to mastery in software development.",
+    "author": "Andrew Hunt, David Thomas",
+    "price": 40.00
+  },
+  {
+    "ISBN": "978-1-59327-584-6",
+    "title": "Eloquent JavaScript",
+    "description": "A modern introduction to JavaScript programming.",
+    "author": "Marijn Haverbeke",
+    "price": 29.99
+  },
+  {
+    "ISBN": "978-0-13-110362-7",
+    "title": "The C Programming Language",
+    "description": "The classic book on the C programming language.",
+    "author": "Brian W. Kernighan, Dennis M. Ritchie",
+    "price": 65.00
+  },
+  {
+    "ISBN": "978-0-262-03384-8",
+    "title": "Structure and Interpretation of Computer Programs",
+    "description": "A foundational book on computer science principles.",
+    "author": "Harold Abelson, Gerald Jay Sussman",
+    "price": 58.95
+  },
+  {
+    "ISBN": "978-1-59327-282-1",
+    "title": "The Art of Exploitation",
+    "description": "A guide to hacking and reverse engineering techniques.",
+    "author": "Jon Erickson",
+    "price": 49.95
+  }
+]
