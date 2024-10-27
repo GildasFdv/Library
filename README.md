@@ -176,5 +176,22 @@ Fait le liens entre tous les modèles et la vue. Elle contient un '**IUserContro
 
 # Installation
 
-à venir...
+## Prérequis
+ - Java 23
 
+## Commandes
+
+Cloner le projet:
+```
+git clone https://github.com/GildasFdv/Library.git
+```
+
+Compiler:
+```
+mvn compile
+```
+
+Lancer (-q sert à indiquer à Maven d'être silencieux):
+```
+mvn -q exec:java -Dexec.mainClass="fr.gildasfedevieille.Main"
+```
